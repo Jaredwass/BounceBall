@@ -1,5 +1,7 @@
 package graphics;
 
+import game.Main;
+
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -25,5 +27,8 @@ public class GUI {
 
 		// Make visible
 		window.setVisible(true);
+		
+		// Start the game
+		Main.init();
 	}
 }

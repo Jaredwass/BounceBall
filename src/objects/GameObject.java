@@ -1,7 +1,9 @@
 package objects;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import game.Constants;
 import graphics.GUI;
 
 public class GameObject {
@@ -42,5 +44,14 @@ public class GameObject {
 		else{
 			yPos += yVel;
 		}
+		
+		// Acceleration from gravity
+		if (yPos < GUI.window.getHeight()){
+			yVel += Constants.gravity;
+		}
+	}
+	
+	public void draw(Graphics g){
+		g.drawImage(image, (int)xPos, (int)yPos, null);
 	}
 }
