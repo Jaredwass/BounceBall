@@ -19,6 +19,7 @@ public class ObjectThread extends Thread{
 	@Override
 	public void run(){
 		while (true){
+			// movement
 			obj.move();
 			obj.draw(g);
 			
