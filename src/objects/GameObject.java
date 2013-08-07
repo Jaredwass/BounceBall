@@ -20,11 +20,11 @@ public class GameObject {
 	
 	public void move(){
 		// x stuff
-		if (xPos + image.getWidth()> GUI.window.getWidth()){
-			xPos = GUI.window.getWidth() - image.getWidth();
+		if (xPos + image.getWidth() + xVel> GUI.canvas.getWidth()){
+			xPos = GUI.canvas.getWidth() - image.getWidth();
 			xVel *= -1;
 		}
-		else if (xPos< 0){
+		else if (xPos + xVel< 0){
 			xPos = 0;
 			xVel *= -1;
 		}
@@ -33,11 +33,11 @@ public class GameObject {
 		}
 		
 		// y stuff
-		if (yPos + image.getHeight()> GUI.window.getHeight()){
-			yPos = GUI.window.getHeight() - image.getHeight();
+		if (yPos + image.getHeight() + yVel> GUI.canvas.getHeight()){
+			yPos = GUI.canvas.getHeight() - image.getHeight();
 			yVel *= -1;
 		}
-		else if (yPos< 0){
+		else if (yPos + yVel < 0){
 			yPos = 0;
 			yVel *= -1;
 		}
@@ -46,7 +46,7 @@ public class GameObject {
 		}
 		
 		// Acceleration from gravity
-		if (yPos < GUI.window.getHeight()){
+		if (yPos < GUI.canvas.getHeight()){
 			yVel += Constants.GRAVITY;
 		}
 	}
