@@ -1,17 +1,16 @@
 package game;
 
-import java.util.ArrayList;
-
 import objects.Ball;
-
 import graphics.GUI;
-import graphics.ObjectThread;
+import graphics.ObjectsThread;
 
 public class Main {
-	static ArrayList<ObjectThread> objectThreads;
+	private static ObjectsThread objsThread;
 	
 	public static void init(){
-		objectThreads = new ArrayList<ObjectThread>();
-		objectThreads.add(new ObjectThread(new Ball(0,0,.2,0), GUI.window.getGraphics()));
+		objsThread = new ObjectsThread(GUI.window.getGraphics(), GUI.offScreen, GUI.offScreen.getGraphics());
+		objsThread.addObject(new Ball(5,5,.2,.2));
+		
+		objsThread.start();
 	}
 }

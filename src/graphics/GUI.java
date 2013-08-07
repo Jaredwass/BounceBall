@@ -2,10 +2,8 @@ package graphics;
 
 import game.Main;
 
-import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
@@ -16,7 +14,7 @@ public class GUI{
 
 	// Graphical
 	public static JFrame window;
-	private static BufferStrategy strat;
+	public static Image offScreen;
 	
 	public GUI(){
 		window = new JFrame("Bounce Ball Game");
@@ -32,7 +30,9 @@ public class GUI{
 
 		// Make visible
 		window.setVisible(true);
-		window.createBufferStrategy(2);
+		
+		// Double buffering
+		offScreen = GUI.window.createImage(GUI.window.getWidth(), GUI.window.getHeight());
 		
 		// Start the game
 		Main.init();

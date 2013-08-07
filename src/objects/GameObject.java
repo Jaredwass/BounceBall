@@ -20,11 +20,11 @@ public class GameObject {
 	
 	public void move(){
 		// x stuff
-		if (xPos + xVel >= GUI.window.getWidth()){
+		if (xPos + image.getWidth()> GUI.window.getWidth()){
 			xPos = GUI.window.getWidth() - image.getWidth();
 			xVel *= -1;
 		}
-		else if (xPos + xVel <= 0){
+		else if (xPos< 0){
 			xPos = 0;
 			xVel *= -1;
 		}
@@ -33,11 +33,11 @@ public class GameObject {
 		}
 		
 		// y stuff
-		if (yPos + yVel >= GUI.window.getHeight()){
+		if (yPos + image.getHeight()> GUI.window.getHeight()){
 			yPos = GUI.window.getHeight() - image.getHeight();
 			yVel *= -1;
 		}
-		else if (yPos + yVel <= 0){
+		else if (yPos< 0){
 			yPos = 0;
 			yVel *= -1;
 		}
