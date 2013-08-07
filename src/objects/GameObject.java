@@ -47,7 +47,7 @@ public class GameObject {
 		
 		// Acceleration from gravity
 		if (yPos < GUI.window.getHeight()){
-			yVel += Constants.gravity;
+			yVel += Constants.GRAVITY;
 		}
 	}
 	
