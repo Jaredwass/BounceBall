@@ -3,7 +3,6 @@ package graphics;
 import game.Main;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 

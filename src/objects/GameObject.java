@@ -22,11 +22,11 @@ public class GameObject {
 		// x stuff
 		if (xPos + image.getWidth() + xVel> GUI.canvas.getWidth()){
 			xPos = GUI.canvas.getWidth() - image.getWidth();
-			xVel *= -1;
+			xVel *= Constants.DAMPER;
 		}
 		else if (xPos + xVel< 0){
 			xPos = 0;
-			xVel *= -1;
+			xVel *= Constants.DAMPER;
 		}
 		else{
 			xPos += xVel;
@@ -35,11 +35,11 @@ public class GameObject {
 		// y stuff
 		if (yPos + image.getHeight() + yVel> GUI.canvas.getHeight()){
 			yPos = GUI.canvas.getHeight() - image.getHeight();
-			yVel *= -1;
+			yVel *= Constants.DAMPER;
 		}
 		else if (yPos + yVel < 0){
 			yPos = 0;
-			yVel *= -1;
+			yVel *= Constants.DAMPER;
 		}
 		else{
 			yPos += yVel;
