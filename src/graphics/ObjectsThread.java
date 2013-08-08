@@ -34,6 +34,18 @@ public class ObjectsThread extends Thread{
 				obj.draw(offg);
 			}
 			
+			// Update the game state
+			for (GameObject obj:objs){
+				int[] numsOld = new int[]{(int) obj.oldxPos, (int) obj.oldyPos,
+				                (int) (obj.oldxPos + obj.image.getWidth()), 
+				                (int) (obj.oldyPos + obj.image.getHeight())};
+				int[] numsNew = new int[]{(int) obj.xPos, (int) obj.yPos,
+				                (int) (obj.xPos + obj.image.getWidth()), 
+				                (int) (obj.yPos + obj.image.getHeight())};
+
+				Collision.drawRect(numsOld, numsNew);
+			}
+			
 			// Put new image on screen
 			g.drawImage(offScreen, 0,0,null);
 			
