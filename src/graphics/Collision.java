@@ -42,13 +42,16 @@ public class Collision {
 	}
 	
 	// x1, y1, xf, yf
-	public static void drawRect(int[] numsOld, int[] numsNew){
+	public static void drawRect(int[] numsOld, int[] numsNew, boolean erase){
+		
 		// erase old
-		for (int i = numsOld[1]; i < numsOld[3]; ++i){
-			for (int j = numsOld[0]; j < numsOld[2]; ++j){
-				if (numsOld[1] == i || numsOld[3] - 1 == i ||
-					numsOld[0] == j || numsOld[2] - 1 == j){
-					gameState[i][j] = false;
+		if (erase){
+			for (int i = numsOld[1]; i < numsOld[3]; ++i){
+				for (int j = numsOld[0]; j < numsOld[2]; ++j){
+					if (numsOld[1] == i || numsOld[3] - 1 == i ||
+						numsOld[0] == j || numsOld[2] - 1 == j){
+						gameState[i][j] = false;
+					}
 				}
 			}
 		}

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import objects.GameObject;
 
 public class ObjectsThread extends Thread{
-	private ArrayList<GameObject> objs;
+	public ArrayList<GameObject> objs;
 	
 	Graphics g;
 	Image offScreen;
@@ -43,7 +43,7 @@ public class ObjectsThread extends Thread{
 				                (int) (obj.xPos + obj.image.getWidth()), 
 				                (int) (obj.yPos + obj.image.getHeight())};
 
-				Collision.drawRect(numsOld, numsNew);
+				Collision.drawRect(numsOld, numsNew, true);
 			}
 			
 			// Put new image on screen
@@ -57,9 +57,5 @@ public class ObjectsThread extends Thread{
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	public void addObject(GameObject obj){
-		objs.add(obj);
 	}
 }
