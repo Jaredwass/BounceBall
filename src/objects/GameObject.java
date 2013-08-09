@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 import game.Constants;
 import graphics.Collision;
-import graphics.GUI;
 
 public class GameObject {
 	public double xPos, yPos, xVel, yVel; // movement
@@ -25,53 +24,49 @@ public class GameObject {
 		oldxPos = xPos;
 		oldyPos = yPos;
 		
+		// erase my old self
+		Collision.drawRect(this, true, false, false, false);
+		
 		// get the rectangle
 		boolean[][] collRect = Collision.getCollisionRect(this);
 		
 		// set up the variables
-		boolean isColl = false;
-		boolean onlyX = true;
-		boolean onlyY = true;
-	
-		// sweep horizontally for x
-		for (int i = 0; i < collRect[0].length; ++i){
-			int count = 0;
-			for (int j = 0; j < collRect.length; ++j){
-				if (collRect[i][j]){
-					isColl = true;
-					++count;
-				}
-			}
-			if (0 < count && count < collRect.length){
-				onlyX = false;
-			}
-		}
+		boolean xColl = Collision.isColl(collRect, false);
+		boolean yColl = Collision.isColl(collRect, true);
 		
-		// sweep veritcally for y
-		for (int i = 0; i < collRect.length; ++i){
-			int count = 0;
-			for (int j = 0; j < collRect[0].length; ++j){
-				if (collRect[i][j]){
-					++count;
+		/////
+		if (xColl || yColl){
+			for (int i = 0; i < collRect.length; ++i){
+				for (int j = 0; j < collRect[0].length; ++j){
+					System.out.print((collRect[i][j])?"*":"_");
 				}
+				System.out.println();
 			}
-			if (0 < count && count < collRect[0].length){
-				onlyY = false;
-			}
+			System.out.println("\n");
 		}
+		/////
 		
 		// Do appropriate adjustments
-		if (isColl){
-			if (onlyX){
+		if (xColl || yColl){
+			if (!yColl){
+				
+				System.out.println("only x");
+				
 				xPos -= xVel;
 				xVel *= Constants.DAMPER;
 			}
-			else if (onlyY){
+			else if (!xColl){
+				
+				System.out.println("only y");
+				
 				yPos -= yVel;
 				yVel *= Constants.DAMPER;
 				xVel *= -1*Constants.DAMPER;
 			}
 			else{
+				
+				System.out.println("x and y");
+				
 				xPos -= xVel;
 				yPos -= yVel;
 				xVel *= Constants.DAMPER;
@@ -83,6 +78,9 @@ public class GameObject {
 			yPos += yVel;
 			yVel += Constants.GRAVITY; // accel from gravity
 		}
+		
+		// draw my old self back
+		Collision.drawRect(this, true, false, true, false);
 		
 		
 //		// x stuff

@@ -30,20 +30,16 @@ public class ObjectsThread extends Thread{
 			
 			// Move and draw all the objects
 			for (GameObject obj:objs){
+				
+				System.out.println("rect at " + obj.xPos + "  " + obj.yPos);
+				
 				obj.move();
 				obj.draw(offg);
 			}
 			
 			// Update the game state
 			for (GameObject obj:objs){
-				int[] numsOld = new int[]{(int) obj.oldxPos, (int) obj.oldyPos,
-				                (int) (obj.oldxPos + obj.image.getWidth()), 
-				                (int) (obj.oldyPos + obj.image.getHeight())};
-				int[] numsNew = new int[]{(int) obj.xPos, (int) obj.yPos,
-				                (int) (obj.xPos + obj.image.getWidth()), 
-				                (int) (obj.yPos + obj.image.getHeight())};
-
-				Collision.drawRect(numsOld, numsNew, true);
+				Collision.drawRect(obj, true, true, false, true);
 			}
 			
 			// Put new image on screen

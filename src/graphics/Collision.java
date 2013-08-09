@@ -1,25 +1,12 @@
 package graphics;
 
-import java.util.Arrays;
-
 import objects.GameObject;
 
 public class Collision {
 	private static boolean[][] gameState;
 	
-	// +2 for the border around the window
 	public static void initGameState(){
-		gameState = new boolean[GUI.canvas.getWidth() + 2][GUI.canvas.getHeight() + 2];
-		
-		// make border
-		Arrays.fill(gameState[0], true);
-		Arrays.fill(gameState[gameState.length - 1], true);
-		
-		for (int i = 0; i < gameState.length; ++i){
-			for (int j = 0; j < gameState[0].length; j += gameState.length - 1){
-				gameState[i][j] = true;
-			}
-		}
+		gameState = new boolean[GUI.canvas.getWidth()][GUI.canvas.getHeight()];
 	}
 	
 	// gives where the box will be after moving
@@ -41,27 +28,53 @@ public class Collision {
 		return collRect;
 	}
 	
-	// x1, y1, xf, yf
-	public static void drawRect(int[] numsOld, int[] numsNew, boolean erase){
+	// check for collision in a given direction
+	public static boolean isColl(boolean[][] collRect, boolean yCheck){
+		for (int i = 0; i < collRect.length; ++i){
+			int count = 0;
+			for (int j = 0; j < collRect[0].length; ++j){
+				boolean isOccupied = (yCheck)?collRect[i][j]:collRect[j][i];
+				if (isOccupied) ++count;
+			}
+			
+			if (count >= 2){
+				return true;
+			}
+		}
 		
-		// erase old
-		if (erase){
+		return false;
+	}
+	
+	// x1, y1, xf, yf
+	public static void drawRect(GameObject obj, boolean messWithOld, boolean messWithNew, boolean drawOld, boolean drawNew){
+		// make arrays
+		int[] numsOld = new int[]{(int) obj.oldxPos, (int) obj.oldyPos,
+                (int) (obj.oldxPos + obj.image.getWidth()), 
+                (int) (obj.oldyPos + obj.image.getHeight())};
+		int[] numsNew = new int[]{(int) obj.xPos, (int) obj.yPos,
+                (int) (obj.xPos + obj.image.getWidth()), 
+                (int) (obj.yPos + obj.image.getHeight())};
+		
+		// draw old
+		if (messWithOld){
 			for (int i = numsOld[1]; i < numsOld[3]; ++i){
 				for (int j = numsOld[0]; j < numsOld[2]; ++j){
 					if (numsOld[1] == i || numsOld[3] - 1 == i ||
-						numsOld[0] == j || numsOld[2] - 1 == j){
-						gameState[i][j] = false;
+							numsOld[0] == j || numsOld[2] - 1 == j){
+						gameState[i][j] = drawOld;
 					}
 				}
 			}
 		}
 		
 		// draw new
-		for (int i = numsNew[1]; i < numsNew[3]; ++i){
-			for (int j = numsNew[0]; j < numsNew[2]; ++j){
-				if (numsNew[1] == i || numsNew[3] - 1 == i ||
-					numsNew[0] == j || numsNew[2] - 1 == j){
-					gameState[i][j] = true;
+		if (messWithNew){
+			for (int i = numsNew[1]; i < numsNew[3]; ++i){
+				for (int j = numsNew[0]; j < numsNew[2]; ++j){
+					if (numsNew[1] == i || numsNew[3] - 1 == i ||
+							numsNew[0] == j || numsNew[2] - 1 == j){
+						gameState[i][j] = drawNew;
+					}
 				}
 			}
 		}
